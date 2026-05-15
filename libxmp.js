@@ -104,12 +104,12 @@
 
 							if(keep_playing()){
 								for(let i = 0; i < len; i++){
-									lChannelData[i] = rChannelData[i] = 0;
+									lChannelData[i] = buffer[2 * i + 0 + 1];
+									rChannelData[i] = buffer[2 * i + 1 + 1];
 								}
 							}else{
 								for(let i = 0; i < len; i++){
-									lChannelData[i] = buffer[2 * i + 0 + 1];
-									rChannelData[i] = buffer[2 * i + 1 + 1];
+									lChannelData[i] = rChannelData[i] = 0;
 								}
 							}
 
@@ -122,7 +122,7 @@
 							currentSource.onended = function() {
 								sources = sources.filter(x=>x != currentSource);
 								if(keep_playing()){
-									read();
+									for(let i = sources.length; i < 5; i++) read();
 								}else if(sources.length == 0){
 									res();
 								}

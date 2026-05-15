@@ -1,6 +1,6 @@
 // Name: Libxmp
 // ID: nishiowoLibxmp
-// Description: Use Libxmp.
+// Description: Play tracker modules using Libxmp.
 // By: NishiOwO
 // License: BSD-3-Clause
 
@@ -5015,7 +5015,7 @@ embedded = true;
 	if(embedded){
 		xmp = libxmp;
 	}else{
-		xmp = await Scratch.external.evalAndReturn("", "libxmp");
+		xmp = await Scratch.external.evalAndReturn("https://raw.githubusercontent.com/NishiOwO/tw-libxmp/refs/heads/master/xmp.js", "libxmp");
 	}
 
 	Module = await xmp();
@@ -5065,6 +5065,10 @@ embedded = true;
 				const pointer = Module._malloc(bytes.length);
 				let h_xmp;
 
+				function keep_playing() {
+					return g_keepplaying[h_xmp] && !util.thread.isKilled && (args.REPEAT == -1 ? true : (xmp_loop_count(h_xmp) < args.REPEAT));
+				}
+
 				Module.HEAPU8.set(bytes, pointer);
 				
 				h_xmp = xmp_start(pointer, bytes.length);
@@ -5088,9 +5092,15 @@ embedded = true;
 							const lChannelData = audioBuffer.getChannelData(0);
 							const rChannelData = audioBuffer.getChannelData(1);
 
-							for(let i = 0; i < len; i++){
-								lChannelData[i] = buffer[2 * i + 0 + 1];
-								rChannelData[i] = buffer[2 * i + 1 + 1];
+							if(keep_playing()){
+								for(let i = 0; i < len; i++){
+									lChannelData[i] = buffer[2 * i + 0 + 1];
+									rChannelData[i] = buffer[2 * i + 1 + 1];
+								}
+							}else{
+								for(let i = 0; i < len; i++){
+									lChannelData[i] = rChannelData[i] = 0;
+								}
 							}
 
 							Module._free(buf);
@@ -5101,8 +5111,8 @@ embedded = true;
 			
 							currentSource.onended = function() {
 								sources = sources.filter(x=>x != currentSource);
-								if(g_keepplaying[h_xmp] && !util.thread.isKilled && (args.REPEAT == -1 ? true : (xmp_loop_count(h_xmp) < args.REPEAT))){
-									read();
+								if(keep_playing()){
+									for(let i = sources.length; i < 5; i++) read();
 								}else if(sources.length == 0){
 									res();
 								}
