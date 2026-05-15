@@ -8,4 +8,4 @@ emcc -o xmp.js xmp.c \
   -s EXPORTED_RUNTIME_METHODS='["cwrap", "ccall", "HEAP16", "HEAP8", "addFunction"]' \
   -s MODULARIZE=1 \
   -s ALLOW_TABLE_GROWTH=1 \
-  -s EXPORT_NAME="XMP" 
+  -s EXPORT_NAME="libxmp" 

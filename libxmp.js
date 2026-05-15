@@ -1,3 +1,11 @@
+// Name: Libxmp
+// ID: nishiowoLibxmp
+// Description: Use Libxmp.
+// By: NishiOwO
+// License: BSD-3-Clause
+
+// Repository is at https://github.com/nishiowo/tw-libxmp
+
 (async function(Scratch) {
 	"use strict";
 
@@ -8,22 +16,25 @@
   	let Module;
 	let xmp;
 	let embedded = false;
-	var XMP;
+	var libxmp;
+
+	/* DO NOT REMOVE THE COMMENT BELOW!!! */
+	/* EMBED XMP.JS HERE */
 
 	if(embedded){
-		xmp = XMP;
+		xmp = libxmp;
 	}else{
-		xmp = await Scratch.evalAndReturn("", "XMP");
+		xmp = await Scratch.evalAndReturn("", "libxmp");
 	}
 
 	Module = await xmp();
 
-	class LibXMP {
+	class Libxmp {
 		getInfo() {
 			return {
 			};
 		}
 	};
 	
-	Scratch.extensions.register(new LibXMP());
+	Scratch.extensions.register(new Libxmp());
 })(Scratch);

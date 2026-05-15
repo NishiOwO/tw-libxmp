@@ -1,3 +1,3 @@
-# LibXMP for TurboWarp
+# Libxmp for TurboWarp
 
 Load `libxmp.js` in unsandboxed mode
