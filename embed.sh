@@ -8,3 +8,8 @@ while read a; do
 		echo "$a"
 	fi
 done < libxmp.js > libxmp.offline.js
+
+for i in "" ".offline"; do
+	cp libxmp$i.js libxmp.full$i.js
+	sed -i 's/full_libxmp = false/full_libxmp = true/' libxmp.full$i.js
+done

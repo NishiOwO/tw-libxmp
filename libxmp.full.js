@@ -17,7 +17,7 @@
   let xmp;
   let g_keepplaying = {};
   let embedded = false;
-  let full_libxmp = false;
+  let full_libxmp = true;
   var libxmp;
 
   /* DO NOT REMOVE THE COMMENT BELOW!!! */
