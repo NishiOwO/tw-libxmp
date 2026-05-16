@@ -1954,11 +1954,18 @@ embedded = true;
 
   if (embedded) {
     xmp = libxmp;
-  } else if(full_libxmp) {
-    xmp = await Scratch.external.evalAndReturn(
-      "https://raw.githubusercontent.com/NishiOwO/tw-libxmp/63101e3cfd7281498b5066f4e79fe8fe09b5797f/xmp" + (full_libxmp ? ".full" : "") + ".js",
-      "libxmp"
-    );
+  } else {
+    if (full_libxmp) {
+      xmp = await Scratch.external.evalAndReturn(
+        "https://raw.githubusercontent.com/NishiOwO/tw-libxmp/63101e3cfd7281498b5066f4e79fe8fe09b5797f/xmp.js",
+        "libxmp"
+      );
+    } else {
+      xmp = await Scratch.external.evalAndReturn(
+        "https://raw.githubusercontent.com/NishiOwO/tw-libxmp/63101e3cfd7281498b5066f4e79fe8fe09b5797f/xmp.full.js",
+        "libxmp"
+      );
+    }
   }
 
   Module = await xmp();
