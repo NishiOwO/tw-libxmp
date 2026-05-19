@@ -4,7 +4,7 @@
 // By: NishiOwO
 // License: BSD-3-Clause
 
-// Repository is at https://github.com/nishiowo/tw-libxmp
+// Repository is at https://github.com/nitro-bolt/tw-libxmp
 
 (async function (Scratch) {
   "use strict";
