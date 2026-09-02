@@ -16,27 +16,19 @@
   let Module, xmp_start, xmp_read, xmp_end, xmp_loop_count;
   let xmp;
   let g_keepplaying = {};
-  let embedded = false;
   let full_libxmp = true;
   var libxmp;
 
-  /* DO NOT REMOVE THE COMMENT BELOW!!! */
-  /* EMBED XMP.JS HERE */
-
-  if (embedded) {
-    xmp = libxmp;
+  if (full_libxmp) {
+    xmp = await Scratch.external.evalAndReturn(
+      "https://raw.githubusercontent.com/Nitro-Bolt/tw-libxmp/63101e3cfd7281498b5066f4e79fe8fe09b5797f/xmp.js",
+      "libxmp"
+    );
   } else {
-    if (full_libxmp) {
-      xmp = await Scratch.external.evalAndReturn(
-        "https://raw.githubusercontent.com/Nitro-Bolt/tw-libxmp/63101e3cfd7281498b5066f4e79fe8fe09b5797f/xmp.js",
-        "libxmp"
-      );
-    } else {
-      xmp = await Scratch.external.evalAndReturn(
-        "https://raw.githubusercontent.com/Nitro-Bolt/tw-libxmp/63101e3cfd7281498b5066f4e79fe8fe09b5797f/xmp.full.js",
-        "libxmp"
-      );
-    }
+    xmp = await Scratch.external.evalAndReturn(
+      "https://raw.githubusercontent.com/Nitro-Bolt/tw-libxmp/63101e3cfd7281498b5066f4e79fe8fe09b5797f/xmp.full.js",
+      "libxmp"
+    );
   }
 
   Module = await xmp();
